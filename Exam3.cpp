@@ -78,8 +78,20 @@ class Building {
      *
      * The method MUST BE RECURSIVE.
      */
+
+    int BuildingHelper(vector<Building *> buildings, int i, int count){
+        if(i == buildings.size()){
+            return i; }
+        else if(buildings[count]->getAge() < buildings[i]->getAge()){
+            i = count;
+        }
+        return BuildingHelper(buildings, i, count++);
+    }
     static int findNewestBuilding(vector<Building *> buildings) {
-        return -11;
+        if(buildings.size() == 0){
+            return -1;
+        }
+        return BuildingHelper(buildings, 1, 0);
     }
 
     /**
@@ -102,8 +114,19 @@ class Building {
      *
      * The method MUST BE RECURSIVE.
      */
+    int youngerHelper(vector<Building *> buildings, int i){
+        if(i == buildings.size()){return 0;}
+        else if(this->building.getAge() > buildings[i]->getAge()){
+            return 1 + youngerHelper(buildings, i+1);
+        }
+        else{return youngerHelper(buildings, i+1);}
+
+    }
     static unsigned int countYoungerBuildings(vector<Building *> buildings) {
-        return 999;
+        if(buildings.size() == 0){
+            return -1;
+        }
+        else{return youngerHelper(buildings, 0);}
     }
 
 }; // End of abstract Building class
